@@ -24,7 +24,9 @@ var server = http.createServer(function(request, response){
   if(path === '/index.html'){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
-    const string = fs.readFileSync('public/index.html')
+    let string = fs.readFileSync('public/index.html').toString()
+    const page1 = fs.readFileSync('database/page1.json').toString()
+    string = string.replace('{{page1}}',page1)
     response.write(string)
     response.end()
   } else if(path === '/main.js'){
@@ -56,6 +58,11 @@ var server = http.createServer(function(request, response){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/json;charset=utf-8')
     response.write(fs.readFileSync('public/5.json'))
+    response.end()
+   }else if(path === '/page2'){
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/json;charset=utf-8')
+    response.write(fs.readFileSync('database/page2.json'))
     response.end()
    }else {
     response.statusCode = 404

@@ -1,3 +1,20 @@
+
+getPage.onclick = () =>{
+    const request = new XMLHttpRequest()
+    request.open('GET','/page2')
+    request.onreadystatechange = () => {
+        if(request.readyState === 4 && request.status === 200){
+            const array = JSON.parse(request.response)
+            array.forEach(item => {
+                const li = document.createElement("li")
+                li.textContent = item.id;
+                xxx.appendChild(li)
+            });    
+        }
+    }
+    request.send()
+}
+
 getJSON.onclick = () => {
     const request = new XMLHttpRequest()
     request.open('GET','/5.json')
@@ -6,7 +23,7 @@ getJSON.onclick = () => {
             console.log(request.response)
             //JSON.parse,把字符串转成对象
             const object = JSON.parse(request.response)
-            console.log(object)
+            myName.textContent = object.name
         }  
     }
     request.send()
